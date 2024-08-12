@@ -19,8 +19,6 @@ class RecipeController extends AbstractController
     #[Route('/recettes/{slug}-{id}', name: 'recipe.show', requirements: ['slug' => '[a-z0-9-]+', 'id' => '\d+'])]
     public function show(Request $request, String $slug, Int $id): Response
     {
-        // dd($slug, $id);
-        return new JsonResponse(['slug' => $slug, 'id' => $id]);
-        // return new Response('Recette ' . $slug . ' - n°' . $id);
+        return $this->render('recipe/show.html.twig', ['slug' => $slug, 'id' => $id]);
     }
 }
