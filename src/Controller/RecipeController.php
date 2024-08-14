@@ -7,7 +7,6 @@ use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -32,8 +31,8 @@ class RecipeController extends AbstractController
         return $this->render('recipe/show.html.twig', ['recipe' => $recipe]);
     }
 
-    #[Route('/recettes/{id}/edit', name: 'recipe.edit', requirements: ['id' => '\d+'])]
-    public function edit(Request $request, Recipe $recipe, RecipeRepository $repository, EntityManagerInterface $em): Response
+    #[Route('/recettes/{id}/edit', name: 'recipe.edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    public function edit(Request $request, Recipe $recipe, EntityManagerInterface $em): Response
     {
         if (!$recipe) {
             $this->addFlash('danger', 'Recette introuvable');
@@ -51,35 +50,30 @@ class RecipeController extends AbstractController
     }
 
     #[Route('/recettes/new', name: 'recipe.new')]
-    public function new(Request $request, RecipeRepository $repository, EntityManagerInterface $em): Response
+    public function new(Request $request, EntityManagerInterface $em): Response
     {
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
-
-        // On set la date de création et update à maintenant :
-        $recipe->setCreatedAt(new \DateTimeImmutable());
-        $recipe->setUpdatedAt(new \DateTimeImmutable());
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // On prend le titre qu'on sépare par des - pour set le slug :
-            $slug = $recipe->getTitle();
-            // // Convertir en minuscules
-            $slug = strtolower($slug);
-            // // Supprimer les accents
-            $slug = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $slug);
-            // // Remplacer les caractères non désirés par des tirets
-            // TODO changer les caracs par des lettres
-            $slug = preg_replace('/[^a-z0-9]+/', '-', $slug);
-            // // Supprimer les tirets en début et fin de chaîne
-            $slug = trim($slug, '-');
-            $recipe->setSlug($slug);
-            // dd($slug);
             $em->persist($recipe);
             $em->flush();
             $this->addFlash('success', 'Recette ajoutée avec succès');
             return $this->redirectToRoute('recipe.show', ['id' => $recipe->getId(), 'slug' => $recipe->getSlug()]);
         }
         return $this->render('recipe/new.html.twig', ['form' => $form->createView()]);
+    }
+
+    #[Route('/recettes/{id}/delete', name: 'recipe.delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
+    public function delete(Recipe $recipe, EntityManagerInterface $em): Response
+    {
+        if (!$recipe) {
+            $this->addFlash('danger', 'Recette introuvable');
+            return $this->redirectToRoute('recipe.index', [], Response::HTTP_MOVED_PERMANENTLY);
+        }
+        $em->remove($recipe);
+        $em->flush();
+        $this->addFlash('success', 'Recette supprimée avec succès');
+        return $this->redirectToRoute('recipe.index');
     }
 }
