@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une recette
+{% endblock %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	<div class="example-wrapper">
+		<h1>Modifier la recette
+			{{ recipe.title | upper }}
+		</h1>
+
+		{# {{ form_start(form) }}
+																				<div class="d-flex">
+																					{{ form_row(form.title) }}
+																					{{ form_row(form.Duration) }}
+																				</div>
+																				{{ form_row(form.content) }}
+																				<button type="submit" class="btn btn-primary">Modifier la recette</button>
+																				<div class="d-none">
+																					{{ form_rest(form) }}
+																				</div>
+																				{{ form_end(form) }} #}
+
+		{{ form(form) }}
+			<a href="{{ path('recipe.index') }}" class="btn btn-outline-secondary">Retour à la liste des recettes</a>
+			<a href="{{ path('recipe.show', {'slug' : recipe.slug, 'id': recipe.id}) }}" class="btn btn-primary">Revenir sur
+				{{ recipe.title }}</a>
+
+		</div>
+	{% endblock %}

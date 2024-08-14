@@ -20,7 +20,7 @@
 	</style>
 
 	<div class="example-wrapper">
-		<h1 class="alert alert-primary">Recette de
+		<h1>Recette de
 			{{ recipe.title | upper }}
 		{# filtres avec le pipe #}
 			{# Si besoin de concaténer, utiliser la tilde #}
@@ -33,6 +33,7 @@
 			<p class="fst-italic">Modifiée le :
 				{{ recipe.updatedAt|date('d/m/Y') }}</p>
 		{% endif %}
+		<a href="{{ path('recipe.edit', {'slug' : recipe.slug, 'id': recipe.id}) }}" class="btn btn-success">Modifier la recette</a>
 		<a href="{{ path('recipe.index') }}" class="btn btn-primary">Retour à la liste des recettes</a>
 	</div>
 {% endblock %}

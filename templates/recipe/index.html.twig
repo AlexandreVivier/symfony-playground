@@ -18,7 +18,7 @@
 	</style>
 
 	<div class="example-wrapper">
-		<h1 class="alert alert-primary">Toutes les recettes
+		<h1>Toutes les recettes
 		</h1>
 		<ul>
 			{% for recipe in recipes %}
@@ -32,4 +32,5 @@
 			{% else %}
 				<li>Aucune recette n'a été trouvée</li>
 			{% endfor %}
+			<a href="{{ path('recipe.new') }}" class="btn btn-success">Ajouter une recette</a>
 		{% endblock %}
