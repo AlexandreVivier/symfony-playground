@@ -22,6 +22,9 @@ class RecipeController extends AbstractController
     public function show(Request $request, String $slug, Int $id, RecipeRepository $repository): Response
     {
         $recipe = $repository->find($id);
+        if (!$recipe || $recipe->getSlug() !== $slug) {
+            return $this->redirectToRoute('recipe.index', [], Response::HTTP_MOVED_PERMANENTLY);
+        }
         return $this->render('recipe/show.html.twig', ['recipe' => $recipe]);
     }
 }
