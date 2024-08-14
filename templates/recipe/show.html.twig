@@ -20,8 +20,18 @@
 
 	<div class="example-wrapper">
 		<h1 class="alert alert-primary">Recette
-			{{ slug | upper }}
+			{{ recipe.title | upper }}
 		{# filtres avec le pipe #}
 			{# Si besoin de concaténer, utiliser la tilde #}
 		</h1>
-	{% endblock %}
+
+		<p>{{ recipe.content }}</p>
+		<p class="fst-italic">Ajoutée le :
+			{{ recipe.createdAt|date('d/m/Y') }}</p>
+		{% if recipe.updatedAt != recipe.createdAt %}
+			<p class="fst-italic">Modifiée le :
+				{{ recipe.updatedAt|date('d/m/Y') }}</p>
+		{% endif %}
+		<a href="{{ path('recipe.index') }}" class="btn btn-primary">Retour à la liste des recettes</a>
+	</div>
+{% endblock %}
