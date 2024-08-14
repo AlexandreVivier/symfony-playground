@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello RecipeController!
+{% block title %}
+	{{ recipe.title }}
 {% endblock %}
 
 
@@ -19,7 +20,7 @@
 	</style>
 
 	<div class="example-wrapper">
-		<h1 class="alert alert-primary">Recette
+		<h1 class="alert alert-primary">Recette de
 			{{ recipe.title | upper }}
 		{# filtres avec le pipe #}
 			{# Si besoin de concaténer, utiliser la tilde #}
