@@ -25,7 +25,7 @@ class RecipeType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Titre',
+                'label' => 'Title',
                 // 'constraints' => [
                 //     new Length(['min' => 10]),
                 // ],
@@ -36,7 +36,7 @@ class RecipeType extends AbstractType
                 'attr' => ['class' => 'd-none'],
             ])
             ->add('content', TextType::class, [
-                'label' => 'Contenu',
+                'label' => 'Content',
                 // 'constraints' => [
                 //     new Length(['min' => 10]),
                 // ],
@@ -48,7 +48,7 @@ class RecipeType extends AbstractType
             //     'widget' => 'single_text',
             // ])
             ->add('Duration', TextType::class, [
-                'label' => 'Durée',
+                'label' => 'Duration',
                 // 'required' => false,
                 // 'constraints' => new Sequentially([
                 //     new NotBlank(),
@@ -57,7 +57,7 @@ class RecipeType extends AbstractType
                 // ]),
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Envoyer',
+                'label' => 'Submit',
                 'attr' => ['class' => 'btn btn-success'],
             ])
             ->addEventListener(FormEvents::PRE_SUBMIT, $this->autoSlug(...))

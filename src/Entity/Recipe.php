@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use App\Validator\BanWord;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 #[UniqueEntity('title')]
@@ -20,14 +21,15 @@ class Recipe
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\Length(min: 10)]
     #[Assert\NotBlank(message: 'Le titre est obligatoire')]
-    private ?string $title = null;
+    #[BanWord()]
+    private ?string $title = '';
 
     #[ORM\Column(length: 255)]
-    private ?string $slug = null;
+    private ?string $slug = '';
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length(min: 10)]
-    private ?string $content = null;
+    private ?string $content = '';
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -40,7 +42,7 @@ class Recipe
     #[Assert\Type(type: 'integer')]
     #[Assert\Positive(message: 'La durée doit être un nombre positif')]
     #[Assert\LessThan(value: 1440, message: 'La durée doit être inférieure à 24h')]
-    private ?int $Duration = null;
+    private ?int $Duration = 0;
 
     public function getId(): ?int
     {
