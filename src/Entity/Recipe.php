@@ -5,8 +5,11 @@ namespace App\Entity;
 use App\Repository\RecipeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
+#[UniqueEntity('title')]
 class Recipe
 {
     #[ORM\Id]
@@ -14,13 +17,16 @@ class Recipe
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
+    #[Assert\Length(min: 10)]
+    #[Assert\NotBlank(message: 'Le titre est obligatoire')]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(min: 10)]
     private ?string $content = null;
 
     #[ORM\Column]
@@ -30,6 +36,10 @@ class Recipe
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'La durée est obligatoire')]
+    #[Assert\Type(type: 'integer')]
+    #[Assert\Positive(message: 'La durée doit être un nombre positif')]
+    #[Assert\LessThan(value: 1440, message: 'La durée doit être inférieure à 24h')]
     private ?int $Duration = null;
 
     public function getId(): ?int
