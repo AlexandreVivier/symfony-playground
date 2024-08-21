@@ -34,13 +34,13 @@
 				{{ recipe.updatedAt|date('d/m/Y') }}</p>
 		{% endif %}
 		<div class="d-flex gap-1 my-2">
-			<a href="{{ path('recipe.edit', {'slug' : recipe.slug, 'id': recipe.id}) }}" class="btn btn-success">Modifier la recette</a>
+			<a href="{{ path('admin.recipe.edit', {'slug' : recipe.slug, 'id': recipe.id}) }}" class="btn btn-success">Modifier la recette</a>
 			{# <a href="{{ path('recipe.delete', {'slug' : recipe.slug, 'id': recipe.id}) }}" class="btn btn-danger">Supprimer la recette</a> #}
-			<form action="{{ path('recipe.delete', {'slug' : recipe.slug, 'id': recipe.id}) }}" method="post">
+			<form action="{{ path('admin.recipe.delete', {'slug' : recipe.slug, 'id': recipe.id}) }}" method="post">
 				<input type="hidden" name="_method" value="DELETE">
 				<button type="submit" class="btn btn-danger">Supprimer la recette</button>
 			</form>
 		</div>
-		<a href="{{ path('recipe.index') }}" class="btn btn-primary">Retour à la liste des recettes</a>
+		<a href="{{ path('admin.recipe.index') }}" class="btn btn-primary">Retour à la liste des recettes</a>
 	</div>
 {% endblock %}

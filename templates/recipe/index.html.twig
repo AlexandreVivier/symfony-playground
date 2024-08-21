@@ -25,12 +25,12 @@
 				<li>
 					<h4 class="text-uppercase">{{ recipe.title }}</h4>
 					<p>{{ recipe.content }}</p>
-					<a href="{{ path('recipe.show', {'slug' : recipe.slug, 'id': recipe.id}) }}" class="btn btn-primary">Voir la recette</a>
+					<a href="{{ path('admin.recipe.show', {'slug' : recipe.slug, 'id': recipe.id}) }}" class="btn btn-primary">Voir la recette</a>
 					<p class="fst-italic">Ajoutée le :
 						{{ recipe.createdAt|date('d/m/Y') }}</p>
 				</li>
 			{% else %}
 				<li>Aucune recette n'a été trouvée</li>
 			{% endfor %}
-			<a href="{{ path('recipe.new') }}" class="btn btn-success">Ajouter une recette</a>
+			<a href="{{ path('admin.recipe.new') }}" class="btn btn-success">Ajouter une recette</a>
 		{% endblock %}
