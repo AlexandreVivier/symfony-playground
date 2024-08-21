@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,6 +18,17 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                ]
+            ])
+            ->add('to', ChoiceType::class, [
+                'choices' => [
+                    'admin' => 'admin@recettes.com',
+                    'comptabilité' => 'comptabilite@recettes.com',
+                    'commercial' => 'commercial@recettes.com',
+                    'technique' => 'technique@recettes.com',
+                ],
                 'constraints' => [
                     new NotBlank(),
                 ]

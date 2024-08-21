@@ -14,7 +14,7 @@ class MailerService
         $to = 'siteadmin@hotmail.fr',
         $subject = 'This is the Mail subject !',
         $content = '',
-        $text = ''
+        $text = '',
     ): void {
         $email = (new Email())
             ->from('noreply@mysite.com')
