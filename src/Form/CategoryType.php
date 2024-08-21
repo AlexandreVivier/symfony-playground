@@ -17,6 +17,9 @@ use Symfony\Component\Form\Event\PreSubmitEvent;
 
 class CategoryType extends AbstractType
 {
+
+    public function __construct(private FormListenerFactory $formListenerFactory) {}
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -25,6 +28,7 @@ class CategoryType extends AbstractType
                 'constraints' => [
                     new NotBlank(),
                 ],
+                'empty_data' => '',
             ])
             ->add('slug', TextType::class, [
                 'label' => 'Slug - auto',
@@ -35,32 +39,32 @@ class CategoryType extends AbstractType
                 'label' => 'Submit',
                 'attr' => ['class' => 'btn btn-success'],
             ])
-            ->addEventListener(FormEvents::PRE_SUBMIT, $this->autoSlug(...))
-            ->addEventListener(FormEvents::POST_SUBMIT, $this->attachTimestamps(...))
+            ->addEventListener(FormEvents::PRE_SUBMIT, $this->formListenerFactory->autoSlug('name'))
+            ->addEventListener(FormEvents::POST_SUBMIT, $this->formListenerFactory->attachTimestamps())
         ;
     }
 
-    public function autoSlug(PreSubmitEvent $event): void
-    {
-        $data = $event->getData();
-        $slugger = new AsciiSlugger();
-        $data['slug'] = strtolower($slugger->slug($data['name']));
-        $event->setData($data);
-    }
+    // public function autoSlug(PreSubmitEvent $event): void
+    // {
+    //     $data = $event->getData();
+    //     $slugger = new AsciiSlugger();
+    //     $data['slug'] = strtolower($slugger->slug($data['name']));
+    //     $event->setData($data);
+    // }
 
 
 
-    public function attachTimestamps(PostSubmitEvent $event): void
-    {
-        $category = $event->getData();
-        if (!($category instanceof Category)) {
-            return;
-        }
-        if ($category->getCreatedAt() === null) {
-            $category->setCreatedAt(new \DateTimeImmutable());
-        }
-        $category->setUpdatedAt(new \DateTimeImmutable());
-    }
+    // public function attachTimestamps(PostSubmitEvent $event): void
+    // {
+    //     $category = $event->getData();
+    //     if (!($category instanceof Category)) {
+    //         return;
+    //     }
+    //     if ($category->getCreatedAt() === null) {
+    //         $category->setCreatedAt(new \DateTimeImmutable());
+    //     }
+    //     $category->setUpdatedAt(new \DateTimeImmutable());
+    // }
 
     public function configureOptions(OptionsResolver $resolver): void
     {

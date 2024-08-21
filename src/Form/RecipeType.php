@@ -21,6 +21,8 @@ use Symfony\Component\Validator\Constraints\Type;
 
 class RecipeType extends AbstractType
 {
+    public function __construct(private FormListenerFactory $formListenerFactory) {}
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -60,21 +62,21 @@ class RecipeType extends AbstractType
                 'label' => 'Submit',
                 'attr' => ['class' => 'btn btn-success'],
             ])
-            ->addEventListener(FormEvents::PRE_SUBMIT, $this->autoSlug(...))
+            ->addEventListener(FormEvents::PRE_SUBMIT, $this->formListenerFactory->autoSlug('title'))
             // ->addEventListener(FormEvents::POST_SUBMIT, $this->autoCreatedAt(...))
-            ->addEventListener(FormEvents::POST_SUBMIT, $this->attachTimestamps(...))
+            ->addEventListener(FormEvents::POST_SUBMIT, $this->formListenerFactory->attachTimestamps())
         ;
     }
 
-    public function autoSlug(PreSubmitEvent $event): void
-    {
-        $data = $event->getData();
-        // if (empty($data['slug'])) {
-        $slugger = new AsciiSlugger();
-        $data['slug'] = strtolower($slugger->slug($data['title']));
-        $event->setData($data);
-        // }
-    }
+    // public function autoSlug(PreSubmitEvent $event): void
+    // {
+    //     $data = $event->getData();
+    //     // if (empty($data['slug'])) {
+    //     $slugger = new AsciiSlugger();
+    //     $data['slug'] = strtolower($slugger->slug($data['title']));
+    //     $event->setData($data);
+    //     // }
+    // }
 
     // public function autoCreatedAt(PostSubmitEvent $event): void
     // {
@@ -82,17 +84,17 @@ class RecipeType extends AbstractType
     //     $recipe->setCreatedAt(new \DateTimeImmutable());
     // }
 
-    public function attachTimestamps(PostSubmitEvent $event): void
-    {
-        $recipe = $event->getData();
-        if (!($recipe instanceof Recipe)) {
-            return;
-        }
-        if ($recipe->getCreatedAt() === null) {
-            $recipe->setCreatedAt(new \DateTimeImmutable());
-        }
-        $recipe->setUpdatedAt(new \DateTimeImmutable());
-    }
+    // public function attachTimestamps(PostSubmitEvent $event): void
+    // {
+    //     $recipe = $event->getData();
+    //     if (!($recipe instanceof Recipe)) {
+    //         return;
+    //     }
+    //     if ($recipe->getCreatedAt() === null) {
+    //         $recipe->setCreatedAt(new \DateTimeImmutable());
+    //     }
+    //     $recipe->setUpdatedAt(new \DateTimeImmutable());
+    // }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
