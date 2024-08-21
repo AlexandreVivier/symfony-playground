@@ -23,6 +23,7 @@ class ContactType extends AbstractType
                 ]
             ])
             ->add('to', ChoiceType::class, [
+                'label' => 'To service',
                 'choices' => [
                     'admin' => 'admin@recettes.com',
                     'comptabilité' => 'comptabilite@recettes.com',
