@@ -1,0 +1,34 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}
+	{{ category.name }}
+{% endblock %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	<div class="example-wrapper">
+		<h1>Catégorie
+			{{ category.name}}
+		</h1>
+		<a href="{{ path('admin.category.edit', {id: category.id}) }}" class="btn btn-outline-secondary">Modifier</a>
+		<form
+			method="post" action="{{ path('admin.category.delete', {id: category.id}) }}" style="display: inline-block">
+			{# {{ csrf_token('delete' ~ category.id) }} #}
+			<input type="hidden" name="_method" value="DELETE">
+			<button type="submit" class="btn btn-danger">Supprimer</button>
+		</form>
+		<a href="{{ path('admin.category.index') }}" class="btn btn-outline-secondary">Retour à la liste des catégories</a>
+	</div>
+{% endblock %}

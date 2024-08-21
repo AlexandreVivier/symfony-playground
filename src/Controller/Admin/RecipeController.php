@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Requirement\Requirement;
 #[Route('/admin/recettes', name: 'admin.recipe.')]
 class RecipeController extends AbstractController
 {
-    #[Route('/', name: 'index')]
+    #[Route('', name: 'index')]
     public function index(RecipeRepository $repository): Response
     {
         $recipes = $repository->findAll();
@@ -46,7 +46,7 @@ class RecipeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
             $this->addFlash('success', 'Recette modifiée avec succès');
-            return $this->redirectToRoute('recipe.show', ['id' => $recipe->getId(), 'slug' => $recipe->getSlug()]);
+            return $this->redirectToRoute('admin.recipe.show', ['id' => $recipe->getId(), 'slug' => $recipe->getSlug()]);
         }
         return $this->render('recipe/edit.html.twig', ['recipe' => $recipe, 'form' => $form->createView()]);
     }
