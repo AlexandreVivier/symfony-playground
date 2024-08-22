@@ -44,6 +44,9 @@ class Recipe
     #[Assert\LessThan(value: 1440, message: 'La durée doit être inférieure à 24h')]
     private ?int $Duration = 0;
 
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    private ?category $category = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -117,6 +120,18 @@ class Recipe
     public function setDuration(int $Duration): static
     {
         $this->Duration = $Duration;
+
+        return $this;
+    }
+
+    public function getCategory(): ?category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }
