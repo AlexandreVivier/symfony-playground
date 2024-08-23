@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Category;
+use App\Entity\Recipe;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,6 +36,13 @@ class CategoryType extends AbstractType
                 'label' => 'Slug - auto',
                 'required' => false,
                 'attr' => ['class' => 'd-none'],
+            ])
+            ->add('Recipes', EntityType::class, [
+                'class' => Recipe::class,
+                'choice_label' => 'title',
+                'multiple' => true,
+                'expanded' => true,
+                'by_reference' => false,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Submit',

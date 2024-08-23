@@ -26,6 +26,10 @@
 			{# Si besoin de concaténer, utiliser la tilde #}
 		</h1>
 
+		<h4 class="alert alert-info">Catégorie :
+			{{ recipe.category.name | default('Non définie') }}
+		</h4>
+
 		<p>{{ recipe.content }}</p>
 		<p class="fst-italic">Ajoutée le :
 			{{ recipe.createdAt|date('d/m/Y') }}</p>

@@ -4,7 +4,6 @@ namespace App\Controller\Admin;
 
 use App\Entity\Recipe;
 use App\Form\RecipeType;
-use App\Repository\CategoryRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,10 +16,9 @@ use Symfony\Component\Routing\Requirement\Requirement;
 class RecipeController extends AbstractController
 {
     #[Route('', name: 'index')]
-    public function index(RecipeRepository $repository, CategoryRepository $catRepository): Response
+    public function index(RecipeRepository $repository): Response
     {
         $recipes = $repository->findWithDurationLowerThan(30);
-        // $categories = $catRepository->findAll();
 
         return $this->render('recipe/index.html.twig', ['recipes' => $recipes]);
     }
