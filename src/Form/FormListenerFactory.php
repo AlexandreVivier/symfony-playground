@@ -11,13 +11,12 @@ class FormListenerFactory
     public function autoSlug(string $field): callable
     {
         return function (PreSubmitEvent $event) use ($field) {
-
             $data = $event->getData();
-            if (empty($data[$field])) {
-                $slugger = new AsciiSlugger();
-                $data['slug'] = strtolower($slugger->slug($data[$field]));
-                $event->setData($data);
-            }
+            // if (empty($data[$field])) {
+            $slugger = new AsciiSlugger();
+            $data['slug'] = strtolower($slugger->slug($data[$field]));
+            $event->setData($data);
+            // }
         };
     }
 

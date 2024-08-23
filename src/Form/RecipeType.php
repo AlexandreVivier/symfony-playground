@@ -3,13 +3,14 @@
 namespace App\Form;
 
 use App\Entity\Recipe;
-// use PHPUnit\Util\Type;
+use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PreSubmitEvent;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Form\Event\PostSubmitEvent;
@@ -49,6 +50,11 @@ class RecipeType extends AbstractType
             // ->add('updatedAt', null, [
             //     'widget' => 'single_text',
             // ])
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'label' => 'Category',
+            ])
             ->add('duration', TextType::class, [
                 'label' => 'duration',
                 // 'required' => false,
