@@ -24,7 +24,7 @@
 			{% for recipe in recipes %}
 				<li>
 					<h4 class="text-uppercase">{{ recipe.title }}</h4>
-					{# <p class="alert-info alert">{{ recipe.category.name | default('Pas de catégorie') }}</p> #}
+					<p class="alert-info alert">{{ recipe.category.name | default('Pas de catégorie') }}</p>
 					<p>{{ recipe.content }}</p>
 					<a href="{{ path('admin.recipe.show', {'slug' : recipe.slug, 'id': recipe.id}) }}" class="btn btn-primary">Voir la recette</a>
 					<p class="fst-italic">Ajoutée le :
