@@ -37,13 +37,13 @@ class CategoryType extends AbstractType
                 'required' => false,
                 'attr' => ['class' => 'd-none'],
             ])
-            ->add('Recipes', EntityType::class, [
-                'class' => Recipe::class,
-                'choice_label' => 'title',
-                'multiple' => true,
-                'expanded' => true,
-                'by_reference' => false,
-            ])
+            // ->add('Recipes', EntityType::class, [
+            //     'class' => Recipe::class,
+            //     'choice_label' => 'title',
+            //     'multiple' => true,
+            //     'expanded' => true,
+            //     'by_reference' => false,
+            // ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Submit',
                 'attr' => ['class' => 'btn btn-success'],
