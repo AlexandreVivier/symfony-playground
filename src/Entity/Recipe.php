@@ -42,7 +42,7 @@ class Recipe
     #[Assert\Type(type: 'integer')]
     #[Assert\Positive(message: 'La durée doit être un nombre positif')]
     #[Assert\LessThan(value: 1440, message: 'La durée doit être inférieure à 24h')]
-    private ?int $Duration = 0;
+    private ?int $duration = 0;
 
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     private ?category $category = null;
@@ -114,12 +114,12 @@ class Recipe
 
     public function getDuration(): ?int
     {
-        return $this->Duration;
+        return $this->duration;
     }
 
-    public function setDuration(int $Duration): static
+    public function setDuration(int $duration): static
     {
-        $this->Duration = $Duration;
+        $this->duration = $duration;
 
         return $this;
     }

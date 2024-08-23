@@ -49,8 +49,8 @@ class RecipeType extends AbstractType
             // ->add('updatedAt', null, [
             //     'widget' => 'single_text',
             // ])
-            ->add('Duration', TextType::class, [
-                'label' => 'Duration',
+            ->add('duration', TextType::class, [
+                'label' => 'duration',
                 // 'required' => false,
                 // 'constraints' => new Sequentially([
                 //     new NotBlank(),
