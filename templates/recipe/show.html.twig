@@ -30,6 +30,8 @@
 			{{ recipe.category.name | default('Non définie') }}
 		</h4>
 
+		<img src="{{ vich_uploader_asset(recipe, 'thumbnailFile') }}" alt="{{ recipe.title }}" class="img-fluid">
+
 		<p>{{ recipe.content }}</p>
 		<p class="fst-italic">Ajoutée le :
 			{{ recipe.createdAt|date('d/m/Y') }}</p>

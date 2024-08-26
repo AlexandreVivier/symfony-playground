@@ -40,13 +40,7 @@ class RecipeType extends AbstractType
                 'required' => false,
                 'attr' => ['class' => 'd-none'],
             ])
-            ->add('thumbnailFile', FileType::class, [
-                'mapped' => false,
-                'required' => false,
-                'constraints' => [
-                    new Image(),
-                ]
-            ])
+            ->add('thumbnailFile', FileType::class)
             ->add('content', TextType::class, [
                 'label' => 'Content',
                 // 'constraints' => [

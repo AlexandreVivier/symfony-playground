@@ -23,16 +23,18 @@
 		</h1>
 
 		{# {{ form_start(form) }}
-																																						<div class="d-flex">
-																																							{{ form_row(form.title) }}
-																																							{{ form_row(form.Duration) }}
-																																						</div>
-																																						{{ form_row(form.content) }}
-																																						<button type="submit" class="btn btn-primary">Modifier la recette</button>
-																																						<div class="d-none">
-																																							{{ form_rest(form) }}
-																																						</div>
-																																						{{ form_end(form) }} #}
+																																								<div class="d-flex">
+																																									{{ form_row(form.title) }}
+																																									{{ form_row(form.Duration) }}
+																																								</div>
+																																								{{ form_row(form.content) }}
+																																								<button type="submit" class="btn btn-primary">Modifier la recette</button>
+																																								<div class="d-none">
+																																									{{ form_rest(form) }}
+																																								</div>
+																																								{{ form_end(form) }} #}
+
+		<img src="{{ vich_uploader_asset(recipe, 'thumbnailFile') }}" alt="{{ recipe.title }}" class="img-fluid">
 
 		{{ form(form) }}
 			<a href="{{ path('admin.recipe.index') }}" class="btn btn-outline-secondary">Retour à la liste des recettes</a>
