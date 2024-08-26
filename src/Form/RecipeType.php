@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Form\Event\PostSubmitEvent;
 use Symfony\Component\Validator\Constraints\Length;
@@ -19,6 +20,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Sequentially;
 use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Constraints\Image;
 
 class RecipeType extends AbstractType
 {
@@ -37,6 +39,13 @@ class RecipeType extends AbstractType
                 'label' => 'Slug - auto',
                 'required' => false,
                 'attr' => ['class' => 'd-none'],
+            ])
+            ->add('thumbnailFile', FileType::class, [
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new Image(),
+                ]
             ])
             ->add('content', TextType::class, [
                 'label' => 'Content',

@@ -45,6 +45,11 @@ class RecipeController extends AbstractController
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request); // le handleRequest set par défaut tous les champs avec les nouvelles valeurs transmises
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $file */
+            $file = $form->get('thumbnailFile')->getData();
+            $filename = $recipe->getId() . '.' . $file->getClientOriginalExtension();
+            $file->move($this->getParameter('kernel.project_dir') . '/public/recettes/images', $filename);
+            $recipe->setThumbnail($filename);
             $em->flush();
             $this->addFlash('success', 'Recette modifiée avec succès');
             return $this->redirectToRoute('admin.recipe.show', ['id' => $recipe->getId(), 'slug' => $recipe->getSlug()]);
